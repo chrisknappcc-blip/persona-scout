@@ -380,7 +380,7 @@ function rt(scrollY){
 
 function syncSelects(rows){
   rows.forEach(r => {
-    const sel = document.getElementById(`sel-${CSS.escape(r.id)}`);
+    const sel = document.getElementById('sel-' + r.id);
     if(sel && r.sp) sel.value = r.sp;
   });
 }
@@ -398,7 +398,7 @@ function renderTable(rows, total, pg, totalPages){
     const conf = r.conf>0 ? `<div class="cb"><div class="ct"><div class="cf" style="width:${r.conf}%;background:${cc}"></div></div><span style="font-size:11px;color:#64748B;min-width:24px">${r.conf}%</span></div>` : '';
     const selCls = r.status==='approved' ? (r.reason==='manually overridden'?'overridden':'approved') : '';
     const sid = esc(r.id);
-    const override = `<select id="sel-${sid}" class="ps-sel ${selCls}" onchange="handleOverride('${sid}',this.value)"><option value="">— no match —</option>${pOpts}</select>`;
+    const override = `<select id="sel-${r.id}" class="ps-sel ${selCls}" onchange="handleOverride('${sid}',this.value)"><option value="">— no match —</option>${pOpts}</select>`;
     let act = '';
     if(r.status==='pending'&&r.sp)     act=`<div class="acell"><button class="btn-sm btn-ok" onclick="apv('${sid}')">✓</button><button class="btn-sm btn-sk" onclick="skp('${sid}')">✕</button></div>`;
     else if(r.status==='approved')     act=`<button class="btn-sm btn-ok" onclick="und('${sid}')">✓</button>`;
