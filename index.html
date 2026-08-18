@@ -12,24 +12,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .logo{width:28px;height:28px;border-radius:7px;background:#3B82F6;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0}
 .bar-title{color:#fff;font-weight:700;font-size:14px}
 .bar-sub{color:#94A3B8;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
-.pills{margin-left:auto;display:flex;gap:6px}
+.bpills{margin-left:auto;display:flex;gap:6px;align-items:center}
 .pill{padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600}
 .pill-g{background:#DCFCE7;color:#16A34A}
 .pill-a{background:#FEF3C7;color:#D97706}
-.pill-m{background:#F1F5F9;color:#64748B;border:0.5px solid #E2E8F0}
+.pill-m{background:#F1F5F9;color:#64748B;border:0.5px solid rgba(255,255,255,.1)}
 .body{padding:24px 20px}
 .center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);padding:24px}
-.upload-card{max-width:520px;width:100%}
+.upload-card{max-width:540px;width:100%}
 h1{font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.4px}
 .usub{color:#64748B;line-height:1.65;margin-bottom:20px;font-size:13px}
-.dz{border:1.5px dashed #CBD5E1;border-radius:14px;padding:40px 24px;text-align:center;cursor:pointer;background:#fff;transition:all .15s}
+.dz{border:1.5px dashed #CBD5E1;border-radius:14px;padding:40px 24px;text-align:center;cursor:pointer;background:#fff;transition:all .15s;margin-bottom:14px}
 .dz:hover,.dz.over{border-color:#3B82F6;background:#EFF6FF}
 .dz-icon{font-size:32px;margin-bottom:10px}
 .dz-label{font-weight:600;margin-bottom:4px}
 .dz-sub{color:#94A3B8;font-size:12px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;margin-bottom:14px}
 .chip{background:#F1F5F9;padding:3px 10px;border-radius:6px;font-size:11px;color:#475569;border:0.5px solid #E2E8F0}
 .chip-lbl{font-size:11px;color:#94A3B8;align-self:center}
+.rj-section{background:#fff;border-radius:12px;border:0.5px solid #E2E8F0;padding:16px}
+.rj-title{font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.rj-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #F1F5F9;cursor:pointer}
+.rj-item:last-child{border-bottom:none}
+.rj-item:hover .rj-name{color:#3B82F6}
+.rj-name{font-size:13px;font-weight:500;flex:1}
+.rj-meta{font-size:11px;color:#94A3B8}
+.rj-badge{padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600}
+.rj-done{background:#DCFCE7;color:#16A34A}
+.rj-proc{background:#FEF3C7;color:#D97706}
 .tw{background:#fff;border-radius:12px;overflow:hidden;border:0.5px solid #E2E8F0;margin-bottom:14px}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
 thead tr{background:#F8FAFC;border-bottom:0.5px solid #E2E8F0}
@@ -37,33 +47,34 @@ th{padding:9px 13px;text-align:left;font-size:10px;font-weight:600;color:#94A3B8
 tbody tr{border-bottom:0.5px solid #F1F5F9}
 tbody tr:last-child{border-bottom:none}
 td{padding:8px 13px;vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
-.more td{text-align:center;color:#94A3B8;font-size:11px}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.more-row td{text-align:center;color:#94A3B8;font-size:11px}
 button{cursor:pointer;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;padding:8px 16px;transition:opacity .1s}
-.btn-p{background:#1A2B4A;color:#fff;border:none}
-.btn-p:hover{opacity:.85}
-.btn-g{background:#fff;color:#64748B;border:0.5px solid #CBD5E1}
-.btn-g:hover{background:#F8FAFC}
+.btn-p{background:#1A2B4A;color:#fff;border:none}.btn-p:hover{opacity:.85}
+.btn-g{background:#fff;color:#64748B;border:0.5px solid #CBD5E1}.btn-g:hover{background:#F8FAFC}
 .btn-sm{padding:3px 9px;font-size:11px;border-radius:6px}
-.btn-ok{background:#DCFCE7;color:#16A34A;border:0.5px solid #86EFAC}
-.btn-ok:hover{opacity:.8}
-.btn-sk{background:#F1F5F9;color:#64748B;border:none}
-.btn-sk:hover{background:#E2E8F0}
+.btn-ok{background:#DCFCE7;color:#16A34A;border:0.5px solid #86EFAC}.btn-ok:hover{opacity:.8}
+.btn-sk{background:#F1F5F9;color:#64748B;border:none}.btn-sk:hover{background:#E2E8F0}
 .btn-undo{background:#F1F5F9;color:#94A3B8;border:none;font-weight:400}
-.btn-ex{background:#1A2B4A;color:#fff;border:none}
-.btn-ex:hover{opacity:.85}
-.btn-hc{background:#fff;color:#16A34A;border:0.5px solid #86EFAC;padding:7px 12px;font-size:12px}
-.btn-hc:hover{background:#F0FDF4}
-.btn-aa{background:#fff;color:#3B82F6;border:0.5px solid #93C5FD;padding:7px 12px;font-size:12px}
-.btn-aa:hover{background:#EFF6FF}
-.proc-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);gap:18px;text-align:center;padding:24px}
+.btn-ex{background:#1A2B4A;color:#fff;border:none}.btn-ex:hover{opacity:.85}
+.btn-hc{background:#fff;color:#16A34A;border:0.5px solid #86EFAC;padding:7px 12px;font-size:12px}.btn-hc:hover{background:#F0FDF4}
+.btn-aa{background:#fff;color:#3B82F6;border:0.5px solid #93C5FD;padding:7px 12px;font-size:12px}.btn-aa:hover{background:#EFF6FF}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.proc-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 54px);gap:16px;text-align:center;padding:24px}
 .proc-icon{font-size:40px}
 .proc-title{font-size:18px;font-weight:600}
-.proc-sub{color:#64748B;font-size:13px;max-width:380px;line-height:1.6}
-.prog-track{width:320px;height:6px;background:#E2E8F0;border-radius:99px;overflow:hidden}
-.prog-fill{height:100%;background:#3B82F6;border-radius:99px;transition:width .3s}
+.proc-sub{color:#64748B;font-size:13px;max-width:420px;line-height:1.6}
+.prog-track{width:360px;height:8px;background:#E2E8F0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:#3B82F6;border-radius:99px;transition:width .5s}
 .proc-stat{color:#94A3B8;font-size:12px}
+.chunk-grid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:360px}
+.chunk-dot{width:10px;height:10px;border-radius:99px;background:#E2E8F0;cursor:default}
+.chunk-dot.queued{background:#E2E8F0}
+.chunk-dot.processing{background:#FCD34D}
+.chunk-dot.complete{background:#34D399}
+.chunk-dot.error{background:#F87171}
+.close-note{font-size:11px;color:#94A3B8;max-width:340px;line-height:1.6}
 .err{background:#FEF2F2;border:0.5px solid #FECACA;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#DC2626;line-height:1.6}
+.warn{background:#FFFBEB;border:0.5px solid #FDE68A;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:12px;color:#92400E;line-height:1.6}
 .stat-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .sc{background:#fff;border:0.5px solid #E2E8F0;border-radius:10px;padding:10px 14px;min-width:86px}
 .sc-n{font-size:20px;font-weight:600}
@@ -71,7 +82,6 @@ button{cursor:pointer;border-radius:8px;font-family:inherit;font-size:13px;font-
 .ctrls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
 .ctrls input,.ctrls select{font-size:12px;padding:7px 11px;border-radius:8px;border:0.5px solid #CBD5E1;background:#fff;color:#1A2B4A;font-family:inherit}
 .ctrls input{flex:1;min-width:150px}
-.pchip{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;border:0.5px solid;white-space:nowrap}
 .nm{color:#CBD5E1;font-size:11px;font-style:italic}
 .cb{display:flex;align-items:center;gap:5px}
 .ct{width:36px;height:3px;background:#E2E8F0;border-radius:99px;overflow:hidden}
@@ -79,93 +89,349 @@ button{cursor:pointer;border-radius:8px;font-family:inherit;font-size:13px;font-
 .rc{color:#94A3B8;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .acell{display:flex;gap:3px}
 .row-ok{background:#F0FDF4!important}
-.row-sk{opacity:.55}
-.ps-sel{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid #CBD5E1;background:#fff;color:#1A2B4A;font-family:inherit;max-width:170px;cursor:pointer}
+.row-sk{opacity:.5}
+.ps-sel{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid #CBD5E1;background:#fff;color:#1A2B4A;font-family:inherit;max-width:172px;cursor:pointer}
 .ps-sel:focus{outline:none;border-color:#3B82F6}
 .ps-sel.overridden{border-color:#D97706;background:#FFFBEB;color:#D97706;font-weight:600}
 .ps-sel.approved{border-color:#86EFAC;background:#F0FDF4;color:#16A34A}
+.pag{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-top:0.5px solid #F1F5F9}
+.pag-info{font-size:12px;color:#94A3B8}
+.pag-btn{background:#fff;border:0.5px solid #E2E8F0;color:#1A2B4A;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:400}
+.pag-btn:hover:not(:disabled){background:#F8FAFC}
+.pag-btn:disabled{opacity:.35;cursor:not-allowed}
+.export-note{font-size:11px;color:#94A3B8;margin-top:6px}
 </style>
 </head>
 <body>
 <div class="bar">
   <div class="logo">⬡</div>
   <div><div class="bar-title">Persona Scout</div><div class="bar-sub">Care Continuity · Cipher</div></div>
-  <div class="pills" id="bpills"></div>
+  <div class="bpills" id="bpills"></div>
 </div>
 <div id="main"></div>
 
 <script>
-const PCOLS={"Executive/Leadership":"#7C3AED","Clinical Operations":"#0284C7","Finance":"#059669","Operating Officer":"#D97706","Nursing Officer":"#DB2777","Strategy":"#2563EB","Business Development":"#16A34A","Innovation":"#6D28D9","Ambulatory/Urgent Care":"#0D9488","Medical Officer":"#DC2626","Patient Experience":"#C2410C","Population Health":"#047857","Emergency Department":"#B91C1C","Medical Group":"#1D4ED8","Chief Clinical Officer":"#9A3412","Medical Information (Medical)":"#4338CA","Quality Officer":"#92400E","Access/Patient Access":"#0E7490","Case Management":"#065F46","Value Based Care":"#1E40AF","Physician Executive":"#6B21A8","Service Line":"#155E75","Vendor/Payor":"#374151"};
-const PERSONA_NAMES=Object.keys(PCOLS);
+const PCOLS={
+  "Executive/Leadership":"#7C3AED","Clinical Operations":"#0284C7","Finance":"#059669",
+  "Operating Officer":"#D97706","Nursing Officer":"#DB2777","Strategy":"#2563EB",
+  "Business Development":"#16A34A","Innovation":"#6D28D9","Ambulatory/Urgent Care":"#0D9488",
+  "Medical Officer":"#DC2626","Patient Experience":"#C2410C","Population Health":"#047857",
+  "Emergency Department":"#B91C1C","Medical Group":"#1D4ED8","Chief Clinical Officer":"#9A3412",
+  "Medical Information (Medical)":"#4338CA","Quality Officer":"#92400E",
+  "Access/Patient Access":"#0E7490","Case Management":"#065F46","Value Based Care":"#1E40AF",
+  "Physician Executive":"#6B21A8","Service Line":"#155E75","Vendor/Payor":"#374151"
+};
+const PNAMES = Object.keys(PCOLS);
+const POLL_MS = 6000;
+const PAGE_SIZE = 75;
 
-let contacts=[],results=[],fp='all',fs='all',sq='',sb='company',lastErr='';
+// ── State ──────────────────────────────────────────────────────────────────────
+let results = [];           // all classified contacts (local, including user edits)
+let resultOffset = 0;       // how many results we've received from server this session
+let fp = 'all', fs = 'pending', sq = '', sb = 'company', page = 0;
+let pollTimer = null;
+let activeJobId = null;
+
+// ── Utilities ──────────────────────────────────────────────────────────────────
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function dc(hdrs){
-  const h=hdrs.map(x=>({o:x,l:x.toLowerCase().replace(/[^a-z0-9]/g,'')}));
-  const f=(...ps)=>{for(const p of ps){const m=h.find(x=>x.l.includes(p));if(m)return m.o;}return null;};
-  return{id:f('recordid','contactid','id'),fn:f('firstname','first'),ln:f('lastname','last'),title:f('jobtitle','title','position'),co:f('companyname','company','organization'),email:f('email')};
+  const h = hdrs.map(x => ({ o: x, l: x.toLowerCase().replace(/[^a-z0-9]/g,'') }));
+  const f = (...ps) => { for(const p of ps){ const m=h.find(x=>x.l.includes(p)); if(m)return m.o; } return null; };
+  return {
+    id:    f('recordid','contactid','id'),
+    fn:    f('firstname','first'),
+    ln:    f('lastname','last'),
+    title: f('jobtitle','title','position'),
+    co:    f('companyname','company','organization'),
+    email: f('email'),
+  };
 }
 
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// ── Local storage: recent jobs ─────────────────────────────────────────────────
+function saveJob(jobId, total, label) {
+  const jobs = getJobs().filter(j => j.jobId !== jobId);
+  jobs.unshift({ jobId, total, label, status: 'processing', savedAt: Date.now() });
+  try { localStorage.setItem('ps-jobs', JSON.stringify(jobs.slice(0,8))); } catch(_){}
+}
+function getJobs() {
+  try { return JSON.parse(localStorage.getItem('ps-jobs') || '[]'); } catch(_){ return []; }
+}
+function updateJobStatus(jobId, status) {
+  const jobs = getJobs();
+  const j = jobs.find(x => x.jobId === jobId);
+  if(j){ j.status = status; try { localStorage.setItem('ps-jobs', JSON.stringify(jobs)); } catch(_){} }
+}
 
+// ── File handling ──────────────────────────────────────────────────────────────
 function handleFile(file){
-  Papa.parse(file,{header:true,skipEmptyLines:true,complete:res=>{
-    const hdrs=res.meta.fields||[];
-    const cols=dc(hdrs);
-    contacts=res.data.filter(r=>r[cols.title]?.trim()).map((r,i)=>({
-      id:r[cols.id]||String(i),fn:r[cols.fn]||'',ln:r[cols.ln]||'',
-      title:(r[cols.title]||'').trim(),company:r[cols.co]||'',email:r[cols.email]||''
-    }));
-    renderPreview();
+  Papa.parse(file, { header:true, skipEmptyLines:true, complete: res => {
+    const hdrs = res.meta.fields || [];
+    const cols = dc(hdrs);
+    const contacts = res.data
+      .filter(r => r[cols.title]?.trim())
+      .map((r,i) => ({
+        id:      r[cols.id] || String(i),
+        fn:      r[cols.fn] || '',
+        ln:      r[cols.ln] || '',
+        title:   (r[cols.title]||'').trim(),
+        company: r[cols.co] || '',
+        email:   r[cols.email] || '',
+      }));
+    window._pendingContacts = contacts;
+    window._pendingLabel = file.name;
+    renderPreview(contacts, file.name);
   }});
 }
 
-async function classifyBatch(batch){
-  const resp=await fetch('/.netlify/functions/classify',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contacts:batch.map(c=>({id:c.id,title:c.title,company:c.company}))})
-  });
-  if(!resp.ok){const t=await resp.text();throw new Error(`Function ${resp.status}: ${t.slice(0,300)}`);}
-  const d=await resp.json();
-  if(d.error)throw new Error(d.error);
-  return d.results||[];
+// ── Start job ──────────────────────────────────────────────────────────────────
+async function startJob(){
+  const contacts = window._pendingContacts;
+  const label = window._pendingLabel || 'Job';
+  renderUploading(contacts.length);
+  try {
+    const resp = await fetch('/.netlify/functions/start-job', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contacts }),
+    });
+    if(!resp.ok){ const t=await resp.text(); throw new Error(`start-job ${resp.status}: ${t.slice(0,200)}`); }
+    const { jobId } = await resp.json();
+    saveJob(jobId, contacts.length, label);
+    beginPolling(jobId);
+  } catch(e) {
+    document.getElementById('main').innerHTML=`<div class="body"><div class="err"><strong>Error:</strong> ${esc(e.message)}</div><button class="btn-g" onclick="renderUpload()">← Back</button></div>`;
+  }
 }
 
+// ── Polling ────────────────────────────────────────────────────────────────────
+function beginPolling(jobId){
+  if(pollTimer){ clearTimeout(pollTimer); pollTimer=null; }
+  activeJobId = jobId;
+  results = [];
+  resultOffset = 0;
+  pollOnce(jobId);
+}
+
+async function pollOnce(jobId){
+  if(activeJobId !== jobId) return; // job switched
+  try {
+    const resp = await fetch(`/.netlify/functions/job-status?jobId=${encodeURIComponent(jobId)}&offset=${resultOffset}`);
+    if(!resp.ok) throw new Error(`job-status ${resp.status}`);
+    const data = await resp.json();
+
+    // Merge only new results — don't touch results the user has already edited
+    if(data.newResults && data.newResults.length > 0){
+      const existingIds = new Set(results.map(r => r.id));
+      for(const r of data.newResults){
+        if(!existingIds.has(r.id)){ results.push(r); existingIds.add(r.id); }
+      }
+      resultOffset = data.totalResultCount || (resultOffset + data.newResults.length);
+    }
+
+    updateJobStatus(jobId, data.status);
+
+    if(data.status === 'processing'){
+      renderProcessing(data);
+      pollTimer = setTimeout(() => pollOnce(jobId), POLL_MS);
+    } else {
+      renderReview(jobId, data.status === 'error' || data.status === 'complete_with_errors');
+    }
+  } catch(e) {
+    // Network hiccup — retry
+    pollTimer = setTimeout(() => pollOnce(jobId), POLL_MS * 2);
+  }
+}
+
+// ── Resume job ─────────────────────────────────────────────────────────────────
+async function resumeJob(jobId){
+  activeJobId = jobId;
+  results = [];
+  resultOffset = 0;
+  document.getElementById('main').innerHTML=`<div class="proc-wrap"><div class="proc-icon">⟳</div><div class="proc-title">Loading job...</div></div>`;
+  try {
+    const resp = await fetch(`/.netlify/functions/job-status?jobId=${encodeURIComponent(jobId)}&offset=0`);
+    const data = await resp.json();
+    if(data.newResults) results.push(...data.newResults);
+    resultOffset = data.totalResultCount || 0;
+    updateJobStatus(jobId, data.status);
+    if(data.status === 'complete' || data.status === 'complete_with_errors' || data.status === 'error'){
+      renderReview(jobId, data.status !== 'complete');
+    } else {
+      renderProcessing(data);
+      pollTimer = setTimeout(() => pollOnce(jobId), POLL_MS);
+    }
+  } catch(e) {
+    document.getElementById('main').innerHTML=`<div class="body"><div class="err">Could not load job: ${esc(e.message)}</div><button class="btn-g" onclick="renderUpload()">← Back</button></div>`;
+  }
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────────
+function apv(id){ const r=results.find(x=>x.id===id); if(r){r.status='approved';r.fp=r.sp;} rt(); }
+function skp(id){ const r=results.find(x=>x.id===id); if(r) r.status='skipped'; rt(); }
+function und(id){ const r=results.find(x=>x.id===id); if(r) r.status='pending'; rt(); }
+function approveAll(){ results.forEach(r=>{if(r.sp){r.status='approved';r.fp=r.sp;}}); rt(); }
+function approveHC(){  results.forEach(r=>{if(r.conf>=80&&r.sp){r.status='approved';r.fp=r.sp;}}); rt(); }
+
+function handleOverride(id, value){
+  const r = results.find(x => x.id === id);
+  if(!r) return;
+  const sy = window.scrollY;
+  if(value){
+    r.fp = value;
+    r.sp = value;
+    r.status = 'approved';
+    r.reason = 'manually overridden';
+  } else {
+    r.fp = null;
+    r.status = 'skipped';
+  }
+  rt(sy);
+}
+
+// ── Export — includes all HubSpot required fields ─────────────────────────────
+function doExport(){
+  const ok = results.filter(r => r.status === 'approved' && r.fp);
+  if(!ok.length){ alert('No approved contacts to export yet.'); return; }
+  const rows = [
+    ['Record ID', 'First Name', 'Last Name', 'Email', 'Target Persona'],
+    ...ok.map(r => [r.id, r.fn, r.ln, r.email, r.fp]),
+  ];
+  const csv = rows.map(r => r.map(c => `"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = 'persona_assignments.csv';
+  a.click();
+}
+
+// ── Filter / sort ──────────────────────────────────────────────────────────────
+function gv(){
+  return results.filter(r => {
+    if(fs !== 'all' && r.status !== fs) return false;
+    if(fp === '__none' && r.sp) return false;
+    if(fp !== 'all' && fp !== '__none' && r.sp !== fp) return false;
+    if(sq){ const q=sq.toLowerCase(); return (`${r.fn} ${r.ln}`).toLowerCase().includes(q)||r.title.toLowerCase().includes(q)||r.company.toLowerCase().includes(q); }
+    return true;
+  }).sort((a,b) => {
+    if(sb==='confidence') return b.conf - a.conf;
+    if(sb==='persona')    return (a.sp||'').localeCompare(b.sp||'');
+    if(sb==='name')       return (a.ln||'').localeCompare(b.ln||'');
+    return (a.company||'').localeCompare(b.company||'');
+  });
+}
+
+// ── Pill update ────────────────────────────────────────────────────────────────
+function updatePills(){
+  const ap = results.filter(r=>r.status==='approved').length;
+  const pe = results.filter(r=>r.status==='pending').length;
+  const sk = results.filter(r=>r.status==='skipped').length;
+  document.getElementById('bpills').innerHTML = (ap+pe+sk===0) ? '' :
+    `<span class="pill pill-g">${ap.toLocaleString()} approved</span>
+     <span class="pill pill-a">${pe.toLocaleString()} pending</span>
+     <span class="pill pill-m">${sk.toLocaleString()} no match</span>`;
+}
+
+// ── Table refresh ──────────────────────────────────────────────────────────────
+function rt(scrollY){
+  updatePills();
+  const w = document.getElementById('rtw');
+  if(!w) return;
+  const vis = gv();
+  const totalPages = Math.max(1, Math.ceil(vis.length / PAGE_SIZE));
+  if(page >= totalPages) page = totalPages - 1;
+  const pageRows = vis.slice(page * PAGE_SIZE, (page+1) * PAGE_SIZE);
+  w.innerHTML = renderTable(pageRows, vis.length, page, totalPages);
+  syncSelects(pageRows);
+  const approved = results.filter(r=>r.status==='approved').length;
+  const eb = document.querySelector('.btn-ex');
+  if(eb) eb.textContent = `↓ Export ${approved.toLocaleString()} approved`;
+  if(scrollY !== undefined) window.scrollTo(0, scrollY);
+}
+
+function syncSelects(rows){
+  rows.forEach(r => {
+    const sel = document.getElementById(`sel-${CSS.escape(r.id)}`);
+    if(sel && r.sp) sel.value = r.sp;
+  });
+}
+
+function changePage(p){ page = p; rt(window.scrollY); }
+
+// ── Table render ───────────────────────────────────────────────────────────────
+function renderTable(rows, total, pg, totalPages){
+  if(!rows.length) return `<div style="padding:28px;text-align:center;color:#94A3B8;font-size:13px">No contacts match the current filters.</div>`;
+  const pOpts = PNAMES.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  const tbody = rows.map(r => {
+    const col = r.sp ? (PCOLS[r.sp]||'#374151') : '#CBD5E1';
+    const rb  = r.status==='approved' ? 'row-ok' : r.status==='skipped' ? 'row-sk' : '';
+    const cc  = r.conf>=80 ? '#16A34A' : r.conf>=60 ? '#D97706' : '#EF4444';
+    const conf = r.conf>0 ? `<div class="cb"><div class="ct"><div class="cf" style="width:${r.conf}%;background:${cc}"></div></div><span style="font-size:11px;color:#64748B;min-width:24px">${r.conf}%</span></div>` : '';
+    const selCls = r.status==='approved' ? (r.reason==='manually overridden'?'overridden':'approved') : '';
+    const sid = esc(r.id);
+    const override = `<select id="sel-${sid}" class="ps-sel ${selCls}" onchange="handleOverride('${sid}',this.value)"><option value="">— no match —</option>${pOpts}</select>`;
+    let act = '';
+    if(r.status==='pending'&&r.sp)     act=`<div class="acell"><button class="btn-sm btn-ok" onclick="apv('${sid}')">✓</button><button class="btn-sm btn-sk" onclick="skp('${sid}')">✕</button></div>`;
+    else if(r.status==='approved')     act=`<button class="btn-sm btn-ok" onclick="und('${sid}')">✓</button>`;
+    else if(r.sp)                      act=`<button class="btn-sm btn-undo" onclick="und('${sid}')">undo</button>`;
+    else                               act=`<span style="font-size:11px;color:#CBD5E1">use ↑</span>`;
+    const reasonHtml = r.reason==='manually overridden'
+      ? `<span style="color:#D97706;font-size:11px">✎ override</span>`
+      : `<span class="rc" title="${esc(r.reason)}">${esc(r.reason)}</span>`;
+    return `<tr class="${rb}"><td style="font-weight:500">${esc(r.fn)} ${esc(r.ln)}</td><td style="color:#475569" title="${esc(r.title)}">${esc(r.title)}</td><td style="color:#94A3B8" title="${esc(r.company)}">${esc(r.company)}</td><td>${override}</td><td>${conf}</td><td>${reasonHtml}</td><td>${act}</td></tr>`;
+  }).join('');
+
+  const pag = totalPages>1 ? `<div class="pag">
+    <button class="pag-btn" onclick="changePage(${pg-1})" ${pg===0?'disabled':''}>← Prev</button>
+    <span class="pag-info">Page ${pg+1} of ${totalPages} · ${total.toLocaleString()} contacts</span>
+    <button class="pag-btn" onclick="changePage(${pg+1})" ${pg>=totalPages-1?'disabled':''}>Next →</button>
+  </div>` : '';
+
+  return `<table>
+    <colgroup><col style="width:13%"><col style="width:20%"><col style="width:12%"><col style="width:22%"><col style="width:7%"><col style="width:14%"><col style="width:12%"></colgroup>
+    <thead><tr><th>Name</th><th>Job title</th><th>Company</th><th>Persona / Override</th><th>Conf.</th><th>Reason</th><th>Action</th></tr></thead>
+    <tbody>${tbody}</tbody>
+  </table>${pag}`;
+}
+
+// ── Stage renderers ────────────────────────────────────────────────────────────
 function renderUpload(){
-  document.getElementById('bpills').innerHTML='';
+  if(pollTimer){ clearTimeout(pollTimer); pollTimer=null; }
+  activeJobId = null;
+  results = []; resultOffset = 0; page = 0; fp='all'; fs='pending'; sq=''; sb='company';
+  document.getElementById('bpills').innerHTML = '';
+  const jobs = getJobs();
+  const recentHtml = jobs.length ? `
+    <div class="rj-section">
+      <div class="rj-title">Resume a recent job</div>
+      ${jobs.map(j=>`
+        <div class="rj-item" onclick="resumeJob('${esc(j.jobId)}')">
+          <span class="rj-badge ${j.status==='complete'?'rj-done':'rj-proc'}">${j.status==='complete'?'Done':'In progress'}</span>
+          <span class="rj-name">${esc(j.label||j.jobId)}</span>
+          <span class="rj-meta">${(j.total||0).toLocaleString()} contacts · ${new Date(j.savedAt).toLocaleDateString()}</span>
+        </div>`).join('')}
+    </div>` : '';
   document.getElementById('main').innerHTML=`
-  <div class="center"><div class="upload-card">
-    <h1>Who's missing from your personas?</h1>
-    <div class="usub">Import a CSV of untagged contacts. Persona Scout reads every job title, understands the variations, and recommends the right persona — ready to push back into HubSpot.</div>
-    <div class="dz" id="dz" tabindex="0" role="button">
-      <div class="dz-icon">📋</div>
-      <div class="dz-label">Drop your CSV here</div>
-      <div class="dz-sub">or click to browse · HubSpot export format works directly</div>
-      <input type="file" id="fi" accept=".csv" style="display:none">
-    </div>
-    <div class="chips">
-      <span class="chip-lbl">Columns:</span>
-      <span class="chip">Record ID</span><span class="chip">First Name</span><span class="chip">Last Name</span>
-      <span class="chip">Job Title</span><span class="chip">Company Name</span><span class="chip">Email</span>
-    </div>
-  </div></div>`;
+    <div class="center"><div class="upload-card">
+      <h1>Who's missing from your personas?</h1>
+      <div class="usub">Upload a CSV of untagged contacts. Processing runs in the background — close the tab and come back anytime. Results persist in Azure Blob.</div>
+      <div class="dz" id="dz" tabindex="0" role="button">
+        <div class="dz-icon">📋</div>
+        <div class="dz-label">Drop your CSV here</div>
+        <div class="dz-sub">or click to browse · HubSpot export format works directly</div>
+        <input type="file" id="fi" accept=".csv" style="display:none">
+      </div>
+      <div class="chips">
+        <span class="chip-lbl">Columns:</span>
+        <span class="chip">Record ID</span><span class="chip">First Name</span><span class="chip">Last Name</span>
+        <span class="chip">Job Title</span><span class="chip">Company Name</span><span class="chip">Email</span>
+      </div>
+      ${recentHtml}
+    </div></div>`;
   bindDZ();
 }
 
-function bindDZ(){
-  const dz=document.getElementById('dz'),fi=document.getElementById('fi');
-  if(!dz||!fi)return;
-  dz.onclick=()=>fi.click();
-  dz.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')fi.click();};
-  dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};
-  dz.ondragleave=()=>dz.classList.remove('over');
-  dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');const f=e.dataTransfer.files[0];if(f)handleFile(f);};
-  fi.onchange=e=>{if(e.target.files[0])handleFile(e.target.files[0]);};
-}
-
-function renderPreview(){
-  const shown=contacts.slice(0,7),more=contacts.length-7;
+function renderPreview(contacts, filename){
+  const shown = contacts.slice(0,7), more = contacts.length-7;
   document.getElementById('main').innerHTML=`
   <div class="body">
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:16px">
@@ -177,196 +443,111 @@ function renderPreview(){
       <thead><tr><th>Name</th><th>Job title</th><th>Company</th></tr></thead>
       <tbody>
         ${shown.map(c=>`<tr><td style="font-weight:500">${esc(c.fn)} ${esc(c.ln)}</td><td style="color:#475569">${esc(c.title)}</td><td style="color:#94A3B8">${esc(c.company)}</td></tr>`).join('')}
-        ${more>0?`<tr class="more"><td colspan="3">+ ${more.toLocaleString()} more</td></tr>`:''}
+        ${more>0?`<tr class="more-row"><td colspan="3">+ ${more.toLocaleString()} more contacts</td></tr>`:''}
       </tbody>
     </table></div>
     <div class="btn-row">
-      <button class="btn-p" onclick="startClassify()">Classify with AI →</button>
+      <button class="btn-p" onclick="startJob()">Start classification →</button>
       <button class="btn-g" onclick="renderUpload()">Upload different file</button>
     </div>
+    <p style="margin-top:10px;font-size:12px;color:#94A3B8">Processing runs server-side — close this tab and come back using the job history below.</p>
   </div>`;
 }
 
-async function startClassify(){
-  const BATCH=20;
-  const batches=[];
-  for(let i=0;i<contacts.length;i+=BATCH)batches.push(contacts.slice(i,i+BATCH));
-  results=[];lastErr='';
+function renderUploading(total){
+  document.getElementById('main').innerHTML=`
+  <div class="proc-wrap">
+    <div class="proc-icon">📤</div>
+    <div class="proc-title">Uploading ${total.toLocaleString()} contacts...</div>
+    <div class="proc-sub">Saving to Azure Blob and starting background workers.</div>
+  </div>`;
+}
+
+function renderProcessing(data){
+  const {total,processed,pct,chunks} = data;
+  const dots = (chunks||[]).map(c=>`<div class="chunk-dot ${c.status||'queued'}" title="Chunk ${(c.index||0)+1}: ${c.status} — ${(c.processed||0).toLocaleString()}/${(c.total||0).toLocaleString()}${c.resumedFrom?` (resumed from ${c.resumedFrom})`:''} contacts"></div>`).join('');
   document.getElementById('main').innerHTML=`
   <div class="proc-wrap">
     <div class="proc-icon">🔍</div>
     <div class="proc-title">Classifying contacts...</div>
-    <div class="proc-sub" id="pm">Starting...</div>
-    <div class="prog-track"><div class="prog-fill" id="pf" style="width:0%"></div></div>
-    <div class="proc-stat" id="ps">0 of ${contacts.length.toLocaleString()} processed</div>
-    <div class="err" id="proc-err" style="display:none"></div>
+    <div class="proc-sub">${(chunks||[]).length} parallel worker${(chunks||[]).length!==1?'s':''} · claude-sonnet-4-6</div>
+    <div class="prog-track"><div class="prog-fill" style="width:${pct||0}%"></div></div>
+    <div class="proc-stat">${(processed||0).toLocaleString()} of ${(total||0).toLocaleString()} classified · ${pct||0}%</div>
+    ${dots?`<div class="chunk-grid">${dots}</div>`:''}
+    <div class="close-note">💡 Safe to close — processing continues in the background. Workers pick up where they left off if interrupted. Come back and resume from job history.</div>
+    ${results.length>0?`<button class="btn-g" style="margin-top:4px" onclick="renderReview(activeJobId,false,true)">Preview ${results.length.toLocaleString()} results so far →</button>`:''}
   </div>`;
-
-  for(let bi=0;bi<batches.length;bi++){
-    const batch=batches[bi];
-    const pct=Math.round(results.length/contacts.length*100);
-    const pf=document.getElementById('pf'),ps=document.getElementById('ps'),pm=document.getElementById('pm');
-    if(pf)pf.style.width=pct+'%';
-    if(ps)ps.textContent=`${results.length.toLocaleString()} of ${contacts.length.toLocaleString()} processed`;
-    if(pm)pm.textContent=`Batch ${bi+1} of ${batches.length}...`;
-
-    let classified=[];
-    try{classified=await classifyBatch(batch);}
-    catch(e){
-      lastErr=e.message;
-      const eb=document.getElementById('proc-err');
-      if(eb){eb.style.display='block';eb.innerHTML=`<strong>Error on batch ${bi+1}:</strong> ${esc(e.message)}`;}
-      classified=batch.map(c=>({id:c.id,persona:null,confidence:0,reason:'error'}));
-    }
-
-    const merged=batch.map(c=>{
-      const r=classified.find(x=>String(x.id)===String(c.id))||{};
-      const p=r.persona||null;
-      return{...c,sp:p,fp:p,conf:r.confidence||0,reason:r.reason||'',status:p?'pending':'skipped'};
-    });
-    results.push(...merged);
-    await new Promise(r=>setTimeout(r,100));
-  }
-
-  const pf=document.getElementById('pf'),ps=document.getElementById('ps');
-  if(pf)pf.style.width='100%';
-  if(ps)ps.textContent=`${contacts.length.toLocaleString()} of ${contacts.length.toLocaleString()} processed`;
-  await new Promise(r=>setTimeout(r,400));
-  renderReview();
 }
 
-function gv(){
-  return results.filter(r=>{
-    if(fs!=='all'&&r.status!==fs)return false;
-    if(fp==='__none'&&r.sp)return false;
-    if(fp!=='all'&&fp!=='__none'&&r.sp!==fp)return false;
-    if(sq){const q=sq.toLowerCase();return(`${r.fn} ${r.ln}`).toLowerCase().includes(q)||r.title.toLowerCase().includes(q)||r.company.toLowerCase().includes(q);}
-    return true;
-  }).sort((a,b)=>{
-    if(sb==='confidence')return b.conf-a.conf;
-    if(sb==='persona')return(a.sp||'').localeCompare(b.sp||'');
-    if(sb==='name')return(a.ln||'').localeCompare(b.ln||'');
-    return(a.company||'').localeCompare(b.company||'');
-  });
-}
-
-function apv(id){const r=results.find(x=>x.id===id);if(r){r.status='approved';r.fp=r.sp;}rt();}
-function skp(id){const r=results.find(x=>x.id===id);if(r)r.status='skipped';rt();}
-function und(id){const r=results.find(x=>x.id===id);if(r)r.status='pending';rt();}
-function approveAll(){results.forEach(r=>{if(r.sp){r.status='approved';r.fp=r.sp;}});rt();}
-function approveHC(){results.forEach(r=>{if(r.conf>=80&&r.sp){r.status='approved';r.fp=r.sp;}});rt();}
-
-function handleOverride(id, value){
-  const r=results.find(x=>x.id===id);
-  if(!r)return;
-  const sy=window.scrollY;
-  if(value){
-    const isOverride=value!==r.sp;
-    r.fp=value;
-    r.sp=value;
-    r.status='approved';
-    if(isOverride)r.reason='manually overridden';
-  }else{
-    r.fp=null;
-    r.status='skipped';
-  }
-  rt(sy);
-}
-
-function doExport(){
-  const ok=results.filter(r=>r.status==='approved'&&r.fp);
-  if(!ok.length){alert('No approved contacts yet.');return;}
-  const rows=[['Record ID','First Name','Last Name','Email','Target Persona'],...ok.map(r=>[r.id,r.fn,r.ln,r.email,r.fp])];
-  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-  a.download='persona_assignments.csv';a.click();
-}
-
-function renderReview(){
-  const ap=results.filter(r=>r.status==='approved').length;
-  const pe=results.filter(r=>r.status==='pending').length;
-  const sk=results.filter(r=>r.status==='skipped').length;
-  document.getElementById('bpills').innerHTML=`<span class="pill pill-g">${ap} approved</span><span class="pill pill-a">${pe} pending</span><span class="pill pill-m">${sk} no match</span>`;
-
-  const pOpts=['<option value="all">All personas</option>',...PERSONA_NAMES.map(p=>`<option value="${p}">${p}</option>`),'<option value="__none">No match</option>'].join('');
+function renderReview(jobId, hasError=false, preview=false){
+  updatePills();
+  const ap = results.filter(r=>r.status==='approved').length;
+  const pe = results.filter(r=>r.status==='pending').length;
+  const sk = results.filter(r=>r.status==='skipped').length;
+  const pOpts = ['<option value="all">All personas</option>',
+    ...PNAMES.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`),
+    '<option value="__none">No match</option>'].join('');
 
   document.getElementById('main').innerHTML=`
   <div class="body">
-    ${lastErr?`<div class="err"><strong>Note:</strong> Some batches hit an error: ${esc(lastErr)}</div>`:''}
+    ${hasError?`<div class="err">Some chunks hit errors — results below are from completed chunks. You can review and export what completed.</div>`:''}
+    ${preview?`<div class="warn">⏳ Processing still running. These are partial results — come back later for the full set or keep polling.</div>`:''}
     <div class="stat-row">
       <div class="sc"><div class="sc-n">${results.length.toLocaleString()}</div><div class="sc-l">Total</div></div>
-      <div class="sc" style="border-color:#FDE68A"><div class="sc-n" style="color:#D97706">${pe}</div><div class="sc-l">Pending</div></div>
-      <div class="sc" style="border-color:#BBF7D0"><div class="sc-n" style="color:#16A34A">${ap}</div><div class="sc-l">Approved</div></div>
-      <div class="sc"><div class="sc-n" style="color:#94A3B8">${sk}</div><div class="sc-l">No match</div></div>
-      <div style="margin-left:auto"><button class="btn-ex" onclick="doExport()">↓ Export ${ap} approved</button></div>
+      <div class="sc" style="border-color:#FDE68A"><div class="sc-n" style="color:#D97706">${pe.toLocaleString()}</div><div class="sc-l">Pending</div></div>
+      <div class="sc" style="border-color:#BBF7D0"><div class="sc-n" style="color:#16A34A">${ap.toLocaleString()}</div><div class="sc-l">Approved</div></div>
+      <div class="sc"><div class="sc-n" style="color:#94A3B8">${sk.toLocaleString()}</div><div class="sc-l">No match</div></div>
+      <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
+        ${preview&&jobId?`<button class="btn-g" style="font-size:12px;padding:7px 12px" onclick="resumeJob('${esc(jobId)}')">↻ Refresh</button>`:''}
+        <div>
+          <button class="btn-ex" onclick="doExport()">↓ Export ${ap.toLocaleString()} approved</button>
+          <div class="export-note">Includes Record ID, First/Last Name, Email, Target Persona</div>
+        </div>
+      </div>
     </div>
     <div class="ctrls">
-      <input type="text" placeholder="Search name, title, company..." oninput="sq=this.value;rt()">
-      <select id="psel" onchange="fp=this.value;rt()">${pOpts}</select>
-      <select id="ssel" onchange="fs=this.value;rt()">
-        <option value="all">All statuses</option><option value="pending">Pending</option>
-        <option value="approved">Approved</option><option value="skipped">No match</option>
+      <input type="text" placeholder="Search name, title, company..." oninput="sq=this.value;page=0;rt()">
+      <select id="psel" onchange="fp=this.value;page=0;rt()">${pOpts}</select>
+      <select id="ssel" onchange="fs=this.value;page=0;rt()">
+        <option value="all">All statuses</option>
+        <option value="pending" selected>Pending review</option>
+        <option value="approved">Approved</option>
+        <option value="skipped">No match</option>
       </select>
-      <select id="osel" onchange="sb=this.value;rt()">
-        <option value="company">Sort: company</option><option value="confidence">Sort: confidence</option>
-        <option value="persona">Sort: persona</option><option value="name">Sort: name</option>
+      <select id="osel" onchange="sb=this.value;page=0;rt()">
+        <option value="company">Sort: company</option>
+        <option value="confidence">Sort: confidence ↓</option>
+        <option value="persona">Sort: persona</option>
+        <option value="name">Sort: name</option>
       </select>
       <button class="btn-hc" onclick="approveHC()">✓ Approve 80%+</button>
       <button class="btn-aa" onclick="approveAll()">✓ Approve all</button>
     </div>
-    <div class="tw" id="rtw">${renderTable(gv())}</div>
+    <div class="tw" id="rtw"></div>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button class="btn-g" onclick="renderUpload()" style="font-size:12px;padding:6px 12px">← New job</button>
+    </div>
   </div>`;
+
+  document.getElementById('psel').value = fp;
+  document.getElementById('ssel').value = fs;
+  document.getElementById('osel').value = sb;
+  rt();
 }
 
-function renderTable(vis){
-  if(!vis.length)return'<div style="padding:28px;text-align:center;color:#94A3B8;font-size:13px">No contacts match the current filters.</div>';
-  const rows=vis.slice(0,300);
-  const pOpts=PERSONA_NAMES.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
-  return`<table>
-    <colgroup><col style="width:13%"><col style="width:20%"><col style="width:12%"><col style="width:22%"><col style="width:7%"><col style="width:14%"><col style="width:12%"></colgroup>
-    <thead><tr><th>Name</th><th>Job title</th><th>Company</th><th>Persona / Override</th><th>Conf.</th><th>Reason</th><th>Action</th></tr></thead>
-    <tbody>${rows.map(r=>{
-      const col=r.sp?(PCOLS[r.sp]||'#374151'):'#CBD5E1';
-      const rb=r.status==='approved'?'row-ok':r.status==='skipped'?'row-sk':'';
-      const cc=r.conf>=80?'#16A34A':r.conf>=60?'#D97706':'#EF4444';
-      const conf=r.conf>0?`<div class="cb"><div class="ct"><div class="cf" style="width:${r.conf}%;background:${cc}"></div></div><span style="font-size:11px;color:#64748B;min-width:24px">${r.conf}%</span></div>`:'';
-      const selClass=r.status==='approved'?'approved':r.reason==='manually overridden'?'overridden':'';
-      const safeId=esc(r.id);
-      const override=`<select class="ps-sel ${selClass}" onchange="handleOverride('${safeId}',this.value)"><option value="">— no match —</option>${pOpts}</select>`;
-      let act='';
-      if(r.status==='pending'&&r.sp)act=`<div class="acell"><button class="btn-sm btn-ok" onclick="apv('${safeId}')">✓</button><button class="btn-sm btn-sk" onclick="skp('${safeId}')">✕</button></div>`;
-      else if(r.status==='approved')act=`<button class="btn-sm btn-ok" onclick="und('${safeId}')">✓ done</button>`;
-      else if(r.sp)act=`<button class="btn-sm btn-undo" onclick="und('${safeId}')">undo</button>`;
-      else act=`<span style="font-size:11px;color:#CBD5E1">use dropdown</span>`;
-      const reasonTxt=r.reason==='manually overridden'?`<span style="color:#D97706;font-size:11px">✎ overridden</span>`:`<span class="rc" title="${esc(r.reason)}">${esc(r.reason)}</span>`;
-      return`<tr class="${rb}" id="row-${safeId}"><td style="font-weight:500">${esc(r.fn)} ${esc(r.ln)}</td><td style="color:#475569" title="${esc(r.title)}">${esc(r.title)}</td><td style="color:#94A3B8" title="${esc(r.company)}">${esc(r.company)}</td><td>${override}</td><td>${conf}</td><td>${reasonTxt}</td><td>${act}</td></tr>`;
-    }).join('')}</tbody>
-  </table>${vis.length>300?`<div style="padding:10px;text-align:center;color:#94A3B8;font-size:11px;border-top:0.5px solid #F1F5F9">Showing 300 of ${vis.length.toLocaleString()} — use filters to narrow down.</div>`:''}`;
+// ── Bind dropzone ──────────────────────────────────────────────────────────────
+function bindDZ(){
+  const dz=document.getElementById('dz'), fi=document.getElementById('fi');
+  if(!dz||!fi) return;
+  dz.onclick = () => fi.click();
+  dz.onkeydown = e => { if(e.key==='Enter'||e.key===' ') fi.click(); };
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); };
+  dz.ondragleave = () => dz.classList.remove('over');
+  dz.ondrop = e => { e.preventDefault(); dz.classList.remove('over'); const f=e.dataTransfer.files[0]; if(f) handleFile(f); };
+  fi.onchange = e => { if(e.target.files[0]) handleFile(e.target.files[0]); };
 }
 
-// After table renders, set all select values to match current state
-function syncSelects(){
-  document.querySelectorAll('.ps-sel').forEach(sel=>{
-    const id=sel.closest('tr')?.id?.replace('row-','');
-    if(!id)return;
-    const r=results.find(x=>x.id===id);
-    if(r&&r.sp)sel.value=r.sp;
-  });
-}
-
-function rt(scrollY){
-  const w=document.getElementById('rtw');
-  if(w)w.innerHTML=renderTable(gv());
-  syncSelects();
-  const ap=results.filter(r=>r.status==='approved').length;
-  const pe=results.filter(r=>r.status==='pending').length;
-  const sk=results.filter(r=>r.status==='skipped').length;
-  document.getElementById('bpills').innerHTML=`<span class="pill pill-g">${ap} approved</span><span class="pill pill-a">${pe} pending</span><span class="pill pill-m">${sk} no match</span>`;
-  const eb=document.querySelector('.btn-ex');if(eb)eb.textContent=`↓ Export ${ap} approved`;
-  if(scrollY!==undefined)window.scrollTo(0,scrollY);
-}
-
+// ── Boot ───────────────────────────────────────────────────────────────────────
 renderUpload();
 </script>
 </body>
