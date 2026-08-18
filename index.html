@@ -190,14 +190,28 @@ async function startJob(){
   const label = window._pendingLabel || 'Job';
   renderUploading(contacts.length);
   try {
+    // 1. Save contacts to blob, get jobId + chunk count
     const resp = await fetch('/.netlify/functions/start-job', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contacts }),
     });
     if(!resp.ok){ const t=await resp.text(); throw new Error(`start-job ${resp.status}: ${t.slice(0,200)}`); }
-    const { jobId } = await resp.json();
+    const { jobId, chunkCount } = await resp.json();
     saveJob(jobId, contacts.length, label);
+
+    // 2. Fire background workers directly from the browser — more reliable than
+    //    server-to-server. Each returns 202 immediately and keeps running independently.
+    const workerFires = Array.from({ length: chunkCount }, (_, i) =>
+      fetch('/.netlify/functions/process-chunk-background', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jobId, chunkIndex: i }),
+      }).catch(() => {})
+    );
+    await Promise.all(workerFires);
+
+    // 3. Start polling
     beginPolling(jobId);
   } catch(e) {
     document.getElementById('main').innerHTML=`<div class="body"><div class="err"><strong>Error:</strong> ${esc(e.message)}</div><button class="btn-g" onclick="renderUpload()">← Back</button></div>`;
