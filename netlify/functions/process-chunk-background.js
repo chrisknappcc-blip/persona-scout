@@ -34,115 +34,171 @@ async function writeBlob(path, data) {
   }
 }
 
-const CLASSIFICATION_PROMPT = `You are a precise healthcare executive classifier for Care Continuity, a referral analytics platform sold to health systems. Accuracy matters — misclassifications waste sales effort.
+const CLASSIFICATION_PROMPT = `You are a precise healthcare executive classifier for Care Continuity, a referral analytics platform sold to health systems. Misclassifications waste sales effort — accuracy is critical.
 
-TASK: Classify each contact's job title into exactly ONE persona. Read every disambiguation rule before classifying.
+TASK: Classify each contact's job title into exactly ONE persona. A title that doesn't clearly fit any persona should return null.
 
-═══ PERSONAS WITH DISAMBIGUATION ═══
+═══ PERSONAS ═══
 
-1. "Executive/Leadership"
-   INCLUDES: CEO, COO, CFO, CNO, CMO, CIO, CTO, CSO, CDO, CISO, President, EVP, SVP (standalone), General Counsel, Board member, Chief of Staff, Group President, Regional President, Chair
-   EXCLUDES: VP/SVP/Director WITH a functional qualifier → use the functional category
+"Executive/Leadership"
+  ABBREVS: CEO, COO, CFO, CHRO, CLO, CAO
+  KEYWORD TRIGGERS (title contains any of these): Chief Executive, Chief Operating, Chief Financial, Chief Administrative, Chief Human Resources, Chief People, Chief Legal, Chief Compliance, Chief of Staff, General Counsel, Board Chair, Board Member, Trustee, Chairman, Chairwoman
+  ✗ NOT HERE: SVP/VP WITH functional qualifier (e.g. SVP Operations → Operating Officer)
+  ✗ NOT HERE: Chief Nursing Officer → Nursing Officer
+  ✗ NOT HERE: Chief Medical Officer → Medical Officer
+  ✗ NOT HERE: Chief Information Officer → Innovation
+  ✗ NOT HERE: Chief Digital Officer → Innovation
+  ✗ NOT HERE: Chief Quality Officer → Quality Officer
+  ✗ NOT HERE: Chief Clinical Officer → Chief Clinical Officer
+  ✗ NOT HERE: Chief Medical Information Officer → Medical Information
 
-2. "Clinical Operations"
-   INCLUDES: Titles containing "Clinical Operations", "Clinic Operations", "Clinical Director" (no specific service line), "Director of Clinical Services", "Director Clinical [anything]"
-   *** KEY RULE: "Clinic Operations" = Clinical Operations. Do NOT classify as Ambulatory. ***
-   EXCLUDES: "Nursing Operations" → Nursing Officer; "Plant/Facility Operations" → Operating Officer; explicit "Ambulatory/Outpatient" → Ambulatory/Urgent Care
+"Clinical Operations"
+  KEYWORD TRIGGERS (title contains any of these): Clinical Operations, Clinic Operations, Clinical Services, Clinical Programs, Clinical Excellence, Clinical Performance, Clinical Director, Clinical Integration, Clinical Practice, Clinical Effectiveness, Clinical Affairs
+  ✗ NOT HERE: Nursing Operations → Nursing Officer
+  ✗ NOT HERE: Ambulatory/Outpatient/Clinic Operations where 'Clinic' = outpatient clinic → still Clinical Operations NOT Ambulatory
+  ✗ NOT HERE: Director, Clinic Operations → Clinical Operations (NOT Ambulatory)
+  ✗ NOT HERE: Plant/Facility Operations → NULL
+  ✗ NOT HERE: Director, [specific service line] Operations → Service Line
 
-3. "Finance"
-   INCLUDES: CFO, VP/Director Finance, Revenue Cycle, Controller, Reimbursement, Revenue Integrity, Financial Planning, Budget, Accounting, Treasurer, Chief Accounting Officer, Government Finance
+"Finance"
+  KEYWORD TRIGGERS (title contains any of these): Financial, Finance, Revenue Cycle, Reimbursement, Controller, Comptroller, Treasury, Treasurer, Budget, Accounting, Accounts, Revenue Integrity, Charge Capture, Coding, Billing, Managed Care (finance)
+  ✗ NOT HERE: Patient Financial Services (registration/access focus) → Access/Patient Access
+  ✗ NOT HERE: Chief Financial Officer of a vendor/pharma company → Vendor/Payor
 
-4. "Operating Officer"
-   INCLUDES: COO, VP/Director Operations (NO clinical qualifier), Hospital Operations
-   *** KEY RULE: "Director, Operations" with NO qualifier = Operating Officer ***
-   EXCLUDES: "Clinical Operations" → Clinical Operations; "Nursing Operations" → Nursing Officer
-   *** IMPORTANT: Facilities, Plant, Supply Chain, Procurement, Logistics, Food Service, Environmental Services, Hospitality, Security, Linen → return NULL. These are not target personas. ***
+"Operating Officer"
+  ABBREVS: COO, Chief Operating Officer
+  KEY RULE: Director Operations WITH qualifier goes to qualifier's category. Without any qualifier = Operating Officer.
+  ✗ NOT HERE: Clinical Operations → Clinical Operations
+  ✗ NOT HERE: Nursing Operations → Nursing Officer
+  ✗ NOT HERE: VP Operations, Ambulatory → Ambulatory/Urgent Care
+  ✗ NOT HERE: Facilities/Plant/Campus Operations → NULL
+  ✗ NOT HERE: Supply Chain/Procurement → NULL
+  ✗ NOT HERE: Environmental Services → NULL
+  ✗ NOT HERE: Food Services/Hospitality → NULL
+  ✗ NOT HERE: Security Operations → NULL
 
-5. "Nursing Officer"
-   INCLUDES: CNO, VP/Director Nursing, Chief Nursing, Director of Nursing, Nursing Operations, Nursing Services, Nursing Excellence, Nursing Practice, Nursing Support Services, Nurse Executive, Advanced Practice Providers [leadership]
-   *** KEY RULE: ANY title where "Nursing" is the primary qualifier → Nursing Officer ***
+"Nursing Officer"
+  KEYWORD TRIGGERS (title contains any of these): Nursing, Nurse Executive, Patient Care Services, Advanced Practice, APP, APRN, Nurse Practitioner, Perioperative Nursing, Nursing Practice, Nursing Excellence, Nursing Informatics, Clinical Nurse
+  KEY RULE: ANY title with 'Nursing' as the primary qualifier = Nursing Officer, even if 'Operations' also appears
 
-6. "Strategy"
-   INCLUDES: CSO, VP/Director Strategy, Strategic Planning, Strategic Development, Corporate Development, M&A
+"Strategy"
+  KEYWORD TRIGGERS (title contains any of these): Strategy, Strategic Planning, Strategic Development, Corporate Development, Strategic Initiatives, Business Strategy, Strategic Growth, Strategic Partnerships, Strategic Operations, Long-Range Planning, System Planning, Enterprise Strategy
 
-7. "Business Development"
-   INCLUDES: VP/Director Business Development, Partnerships, Growth, Network Development, Referral Development, Director Development
+"Business Development"
+  KEYWORD TRIGGERS (title contains any of these): Business Development, Network Development, Referral Development, Physician Relations, Referral Relations, Referring Physician, Market Development, Growth, Partnerships, Strategic Partnerships, Physician Outreach, Physician Liaison, Outreach, Community Relations, Physician Development, Service Development
 
-8. "Innovation"
-   INCLUDES: CIO, CTO, CDO, CISO, Chief Innovation, VP/Director Digital Health, Health IT, Informatics, Technology, Data Analytics, Data Science, Cybersecurity, Digital Engagement, Enterprise Applications, EHR Operations, Clinical Informatics
+"Innovation"
+  ABBREVS: CIO, CTO, CDO, CISO, CMIO
+  KEYWORD TRIGGERS (title contains any of these): Information Technology, Information Systems, Health IT, Digital Health, Digital Transformation, Technology, Informatics, Data Analytics, Business Intelligence, Cybersecurity, Information Security, Enterprise Applications, EHR, Epic, Health Information, Telehealth Technology, Innovation, Data Science, Artificial Intelligence, AI
+  ✗ NOT HERE: CMIO/Chief Medical Information Officer → Medical Information (Medical)
+  ✗ NOT HERE: Medical Director Informatics → Medical Information (Medical)
+  ✗ NOT HERE: Director of Innovation Programs (operational) → may be Clinical Operations or Strategy
 
-9. "Ambulatory/Urgent Care"
-   INCLUDES: VP/Director Ambulatory Care, Outpatient Services, Urgent Care, Primary Care Operations, Telehealth, Ambulatory Surgery
-   *** KEY RULE: Title must EXPLICITLY contain "Ambulatory", "Outpatient", "Urgent Care", "Primary Care", or "Telehealth" ***
-   EXCLUDES: "Clinic Operations" or "Clinical Operations" → Clinical Operations
+"Ambulatory/Urgent Care"
+  KEYWORD TRIGGERS (title contains any of these): Ambulatory, Outpatient, Urgent Care, Primary Care, Telehealth (clinical ops), Ambulatory Surgery, Ambulatory Services
+  KEY RULE: Title MUST explicitly contain Ambulatory, Outpatient, Urgent Care, Primary Care, or Telehealth. 'Clinic Operations' alone is NOT sufficient.
+  ✗ NOT HERE: Director Clinic Operations → Clinical Operations (NOT Ambulatory)
+  ✗ NOT HERE: Director Clinical Operations → Clinical Operations
 
-10. "Medical Officer"
-    INCLUDES: CMO, Medical Director (general, no specific service line), Associate CMO, VP Medical Affairs, Chief Physician Executive
-    EXCLUDES: "Medical Director, [specific service line]" → Physician Executive; CMIO → Medical Information
+"Medical Officer"
+  ABBREVS: CMO, ACMO
+  KEYWORD TRIGGERS (title contains any of these): Chief Medical, Medical Affairs, Physician Executive (system-level)
+  ✗ NOT HERE: Medical Director, [specific department name] → Physician Executive
+  ✗ NOT HERE: Chief Medical Information Officer → Medical Information (Medical)
+  ✗ NOT HERE: Medical Director of Informatics → Medical Information (Medical)
+  ✗ NOT HERE: Medical Director Emergency Medicine → Emergency Department
 
-11. "Patient Experience"
-    INCLUDES: VP/Director Patient Experience, Customer Experience, Patient Satisfaction, Patient Relations, Service Excellence, Loyalty Programs
+"Patient Experience"
+  KEYWORD TRIGGERS (title contains any of these): Patient Experience, Customer Experience, Patient Satisfaction, Service Excellence, Patient Relations, Patient Advocacy, Patient Engagement, Loyalty Programs, Experience Design, Patient-Centered
 
-12. "Population Health"
-    INCLUDES: VP/Director Population Health, Accountable Care, Community Health, Health Equity, Social Determinants, Community Benefit
+"Population Health"
+  KEYWORD TRIGGERS (title contains any of these): Population Health, Community Health, Health Equity, Social Determinants, SDOH, Community Benefit, Accountable Care (community focus), Public Health, Community Wellness, Health Disparities, Social Impact
+  ✗ NOT HERE: VP Accountable Care (HEDIS/payer contracting focus) → Value Based Care
+  ✗ NOT HERE: Director ACO Operations (contracting focus) → Value Based Care
 
-13. "Emergency Department"
-    INCLUDES: Director/Medical Director Emergency Medicine, Emergency Department, ED, Trauma Director
+"Emergency Department"
+  KEYWORD TRIGGERS (title contains any of these): Emergency Medicine, Emergency Department, Emergency Services, Emergency Care, Trauma, ED, ER, Emergency Operations (clinical)
 
-14. "Medical Group"
-    INCLUDES: Medical Group Director, Physician Practice Administrator, Group Practice, IPA, Physician Network
+"Medical Group"
+  KEYWORD TRIGGERS (title contains any of these): Medical Group, Physician Practice, Physician Group, Group Practice, IPA, Physician Organization, Physician Network (admin), Physician Services (practice management), Medical Foundation
+  ✗ NOT HERE: VP Physician Relations → Business Development
+  ✗ NOT HERE: Director Physician Liaison → Business Development
+  ✗ NOT HERE: VP Physician Services (system clinical leadership) → Medical Officer
 
-15. "Chief Clinical Officer"
-    INCLUDES: ONLY titles literally containing "Chief Clinical Officer" or CCO
+"Chief Clinical Officer"
+  KEYWORD TRIGGERS (title contains any of these): Chief Clinical Officer, CCO
+  KEY RULE: EXTREMELY specific. Only 'Chief Clinical Officer' qualifies. Chief Clinical Operations Officer → Clinical Operations.
 
-16. "Medical Information (Medical)"
-    INCLUDES: CMIO, Chief Medical Information Officer, Medical Informatics Director, Clinical Informatics (physician-led)
+"Medical Information (Medical)"
+  ABBREVS: CMIO
+  KEYWORD TRIGGERS (title contains any of these): Medical Information, Medical Informatics, Clinical Informatics (physician-led), Chief Medical Information, Chief Medical Informatics
+  KEY RULE: Physician-led informatics only. Non-physician informatics → Innovation.
 
-17. "Quality Officer"
-    INCLUDES: Chief Quality Officer, VP/Director Quality, Patient Safety, Accreditation, Regulatory Compliance, Risk Management, Infection Control [leadership]
+"Quality Officer"
+  KEYWORD TRIGGERS (title contains any of these): Quality, Patient Safety, Accreditation, Regulatory, Infection Control, Performance Improvement, Process Improvement, Joint Commission, Compliance (clinical/patient safety), Risk Management (clinical), Quality Improvement, Quality Management
+  ✗ NOT HERE: Chief Compliance Officer (general corporate/legal) → null or Executive/Leadership
+  ✗ NOT HERE: Chief Risk Officer (financial/enterprise) → null
+  ✗ NOT HERE: Director IT Risk/Security → Innovation
 
-18. "Access/Patient Access"
-    INCLUDES: Director Patient Access, Access Management, Scheduling, Registration, Revenue Cycle Access, Transfer Center, Patient Logistics, Patient Placement, Bed Management, Patient Flow Command Center
+"Access/Patient Access"
+  KEYWORD TRIGGERS (title contains any of these): Patient Access, Access Management, Registration, Admitting, Scheduling, Centralized Scheduling, Transfer Center, Patient Placement, Patient Logistics, Bed Management, Patient Flow, Access Services, Prior Authorization, Pre-Registration, Pre-Authorization, Revenue Cycle Access
 
-19. "Case Management"
-    INCLUDES: VP/Director Case Management, Care Coordination, Care Management, Discharge Planning, Utilization Review, Transition of Care
+"Case Management"
+  KEYWORD TRIGGERS (title contains any of these): Case Management, Care Management, Care Coordination, Utilization Management, Utilization Review, Discharge Planning, Social Work (healthcare), Social Services (healthcare), Transitions of Care, Post-Acute, Care Transitions, Complex Care
 
-20. "Value Based Care"
-    INCLUDES: VP/Director Value-Based Care, ACO, HEDIS, Quality Reporting, Value-Based Programs, Risk-Based Contracting
+"Value Based Care"
+  KEYWORD TRIGGERS (title contains any of these): Value Based Care, Value-Based Care, Accountable Care Organization, ACO, Bundled Payments, HEDIS, Quality Reporting, Risk Contracting, Risk-Based, Value-Based Programs, CMS Programs, MSSP, Alternative Payment, Population Health Programs (VBC focus)
 
-21. "Physician Executive"
-    INCLUDES: Medical Directors of a SPECIFIC named clinical department (e.g. "Medical Director, Cardiology"), Department Chair, Division Chief, Section Chief
+"Physician Executive"
+  KEY RULE: Medical Director WITH a specific department name. Chair/Chief/Division of a specific clinical specialty.
 
-22. "Service Line"
-    INCLUDES: VP/Director of a NAMED clinical service line: Cardiology, Oncology, Orthopedics, Neurology, Women's Health, Surgical Services, Cancer, Heart & Vascular, Behavioral Health, Rehabilitation, Musculoskeletal
+"Service Line"
+  KEYWORD TRIGGERS (title contains any of these): Heart, Cardiac, Cardiology, Cardiovascular, Oncology, Cancer, Orthopedic, Musculoskeletal, Neuroscience, Neuro, Women's Health, Obstetrics, Maternal, Surgical Services, Surgery, Behavioral Health, Psychiatry, Mental Health, Rehabilitation, Physical Therapy
+  KEY RULE: VP/Director/Senior Director of a named clinical service line — administrative leadership, not physician
+  ✗ NOT HERE: Medical Director [service line] → Physician Executive (physician-led)
+  ✗ NOT HERE: Chair [specialty] → Physician Executive
 
-23. "Vendor/Payor"
-    INCLUDES: Insurance, pharma, vendors, consultants, investment firms — NOT a health system employee
-
-═══ PRIORITY ORDER ═══
-1. "Nursing" in title → Nursing Officer
-2. "Clinical Operations" or "Clinic Operations" → Clinical Operations
-3. Explicit "Ambulatory", "Outpatient", "Urgent Care" → Ambulatory/Urgent Care
-4. "Chief [Function]" → functional category
-5. "Operations" alone → Operating Officer
-6. Specific service line named → Service Line or Physician Executive
+═══ PRIORITY DISAMBIGUATION RULES ═══
+1. "Nursing" anywhere as primary qualifier → Nursing Officer (beats Clinical Ops, Operating Officer)
+2. "Clinical Operations" or "Clinic Operations" → Clinical Operations (beats Ambulatory — "clinic" ≠ ambulatory)
+3. "Ambulatory", "Outpatient", "Urgent Care", "Primary Care" explicit in title → Ambulatory/Urgent Care
+4. "Medical Director, [department name]" → Physician Executive (not Medical Officer)
+5. "Medical Director" alone (no department) → Medical Officer
+6. "Chief [Function]" → the functional category (Chief Nursing → Nursing Officer, Chief Medical → Medical Officer)
+7. "Operations" alone, no qualifier → Operating Officer
+8. Named clinical service line + VP/Director (non-physician) → Service Line
 
 ═══ RETURN NULL FOR ═══
-- Admin support (Executive Assistant, Secretary, Coordinator without Director/VP/Chief)
-- Bedside clinicians with no leadership (RN, MD with NO Director/VP/Chair/Chief prefix)
-- Students, interns, residents, fellows, retirees
-- Confidence < 50
-- Facilities / Plant Operations / Campus Planning / Real Estate roles (not a target persona)
-- Supply Chain / Procurement / Purchasing / Vendor Management / Contracting roles (not a target persona)
-- Environmental Services / Food Services / Hospitality / Linen / Security / Parking roles (not a target persona)
-- General counsel / Legal / Compliance / Risk (unless clearly Quality Officer with patient safety focus)
+These are not target personas — return null even for senior titles:
+  - Facilities / Real Estate / Campus Planning
+  - Supply Chain / Procurement / Purchasing / Contracting (non-clinical)
+  - Environmental Services / Housekeeping / Linen / Laundry
+  - Food Services / Nutrition Services / Hospitality / Culinary
+  - Security / Public Safety / Parking
+  - Human Resources / Talent Acquisition / Workforce / Benefits / Compensation
+  - Marketing / Communications / Public Relations / Brand
+  - Legal / General Counsel (unless system-level Executive/Leadership)
+  - Finance (vendor/pharma company → Vendor/Payor)
+  - Fundraising / Philanthropy (foundation only, not health system BD)
+  - Administrative Support (Executive Assistant, Secretary, Coordinator, Scheduler at non-director level)
+  - Bedside Clinical (RN, LPN, CNA, Physician/MD with no leadership prefix, NP/PA with no leadership prefix)
+  - Education / Academic (Professor, Instructor, Resident, Fellow, Student)
+  - Research (Researcher, Principal Investigator, Research Coordinator — no leadership title)
+  - Retired / Former / Emeritus
+Specific patterns to exclude: Plant Operations, Facilities Management, Facility Operations, Campus Planning, Real Estate, Construction, Capital Projects, Supply Chain, Procurement, Purchasing, Vendor Management, Contracting (non-clinical), Materials Management, Environmental Services, Housekeeping, EVS, Food Service, Food & Nutrition, Culinary, Cafeteria, Hospitality Services, Guest Services, Linen Services, Laundry, Textile, Security, Public Safety, Parking, Human Resources, HR, Talent Acquisition, Recruiting, Workforce Development (HR context), Compensation & Benefits, Marketing, Communications, Public Relations, Brand, Media Relations, Social Media
 
-═══ CONFIDENCE ═══ 90-100: Unambiguous | 70-89: Strong match | 50-69: Best guess | <50: null
+Also null: Admin support (Executive/Administrative Assistant, Coordinator, Secretary without VP/Director/Chief prefix), bedside clinicians (RN, MD, NP, PA with NO leadership prefix), students/residents/fellows/interns, retirees, titles with confidence < 50
 
-Return ONLY a valid JSON array, no markdown:
-[{"id":"...","persona":"exact persona name or null","confidence":0-100,"reason":"title keywords that drove classification"}]
+═══ CONFIDENCE ═══
+90-100: Keyword unambiguously maps to exactly one persona
+70-89: Strong match, minor uncertainty
+50-69: Best interpretation with meaningful uncertainty
+< 50: Return null — do not guess
 
-Contacts:`;
+Return ONLY a valid JSON array, no markdown, no preamble:
+[{"id":"...","persona":"exact persona name or null","confidence":0-100,"reason":"the specific title keywords that drove this classification"}]
+
+Contacts to classify:`;
 
 async function classifyBatch(apiKey, batch) {
   const prompt = CLASSIFICATION_PROMPT + '\n' + JSON.stringify(batch.map(c => ({ id: c.id, title: c.title, company: c.company })));
