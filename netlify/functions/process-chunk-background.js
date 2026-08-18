@@ -53,9 +53,10 @@ TASK: Classify each contact's job title into exactly ONE persona. Read every dis
    INCLUDES: CFO, VP/Director Finance, Revenue Cycle, Controller, Reimbursement, Revenue Integrity, Financial Planning, Budget, Accounting, Treasurer, Chief Accounting Officer, Government Finance
 
 4. "Operating Officer"
-   INCLUDES: COO, VP/Director Operations (NO clinical qualifier), Hospital Operations, Facility Operations, Plant Operations, Environmental Services, Supply Chain, Logistics, Food Services, Hospitality, Security, Campus Planning, Support Operations
+   INCLUDES: COO, VP/Director Operations (NO clinical qualifier), Hospital Operations
    *** KEY RULE: "Director, Operations" with NO qualifier = Operating Officer ***
    EXCLUDES: "Clinical Operations" → Clinical Operations; "Nursing Operations" → Nursing Officer
+   *** IMPORTANT: Facilities, Plant, Supply Chain, Procurement, Logistics, Food Service, Environmental Services, Hospitality, Security, Linen → return NULL. These are not target personas. ***
 
 5. "Nursing Officer"
    INCLUDES: CNO, VP/Director Nursing, Chief Nursing, Director of Nursing, Nursing Operations, Nursing Services, Nursing Excellence, Nursing Practice, Nursing Support Services, Nurse Executive, Advanced Practice Providers [leadership]
@@ -101,7 +102,7 @@ TASK: Classify each contact's job title into exactly ONE persona. Read every dis
     INCLUDES: Chief Quality Officer, VP/Director Quality, Patient Safety, Accreditation, Regulatory Compliance, Risk Management, Infection Control [leadership]
 
 18. "Access/Patient Access"
-    INCLUDES: Director Patient Access, Access Management, Scheduling, Registration, Revenue Cycle Access
+    INCLUDES: Director Patient Access, Access Management, Scheduling, Registration, Revenue Cycle Access, Transfer Center, Patient Logistics, Patient Placement, Bed Management, Patient Flow Command Center
 
 19. "Case Management"
     INCLUDES: VP/Director Case Management, Care Coordination, Care Management, Discharge Planning, Utilization Review, Transition of Care
@@ -131,6 +132,10 @@ TASK: Classify each contact's job title into exactly ONE persona. Read every dis
 - Bedside clinicians with no leadership (RN, MD with NO Director/VP/Chair/Chief prefix)
 - Students, interns, residents, fellows, retirees
 - Confidence < 50
+- Facilities / Plant Operations / Campus Planning / Real Estate roles (not a target persona)
+- Supply Chain / Procurement / Purchasing / Vendor Management / Contracting roles (not a target persona)
+- Environmental Services / Food Services / Hospitality / Linen / Security / Parking roles (not a target persona)
+- General counsel / Legal / Compliance / Risk (unless clearly Quality Officer with patient safety focus)
 
 ═══ CONFIDENCE ═══ 90-100: Unambiguous | 70-89: Strong match | 50-69: Best guess | <50: null
 

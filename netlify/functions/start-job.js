@@ -1,6 +1,7 @@
 // start-job.js
-// Receives contacts array, splits into chunks, saves to Azure Blob,
-// fires one background function per chunk, returns jobId.
+// Saves contacts to Azure Blob, initializes chunk metadata.
+// Does NOT trigger background functions — the frontend handles that
+// so it can confirm each worker fired successfully.
 
 const CHUNK_SIZE = 3500;
 const CONTAINER = 'persona-scout';
@@ -21,10 +22,7 @@ async function writeBlob(path, data) {
   const body = JSON.stringify(data);
   const resp = await fetch(blobUrl(path), {
     method: 'PUT',
-    headers: {
-      'x-ms-blob-type': 'BlockBlob',
-      'Content-Type': 'application/json',
-    },
+    headers: { 'x-ms-blob-type': 'BlockBlob', 'Content-Type': 'application/json' },
     body,
   });
   if (!resp.ok) {
@@ -76,23 +74,11 @@ exports.handler = async (event) => {
       });
     }
 
-    // Fire one background function per chunk (fire and forget)
-    const host = event.headers['host'] || event.headers['Host'] || '';
-    const proto = host.startsWith('localhost') ? 'http' : 'https';
-    const bgUrl = `${proto}://${host}/.netlify/functions/process-chunk-background`;
-
-    for (let i = 0; i < chunks.length; i++) {
-      fetch(bgUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ jobId, chunkIndex: i }),
-      }).catch(() => {}); // fire and forget
-    }
-
+    // Return jobId and chunk count — frontend fires the background workers
     return {
       statusCode: 200,
       headers: { ...CORS, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ jobId, total: contacts.length, chunks: chunks.length }),
+      body: JSON.stringify({ jobId, total: contacts.length, chunkCount: chunks.length }),
     };
   } catch (e) {
     return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: e.message }) };
